@@ -83,7 +83,7 @@ Total 21 tablas.
 
 # ANÁLISIS DE DATOS: 
 
-# -- Análisis de ingresos mensuales.
+# Análisis de ingresos mensuales.
 
 SELECT DATE_FORMAT(fecha, '%Y-%m') AS mes, SUM(monto_total) AS ingresos
 FROM facturas_clientes
@@ -95,30 +95,7 @@ ORDER BY mes;
   mensual.
   
 
-# -- Análisis de preferencias de menú, para identificar los productos más vendidos de cada categoria (platos, bebidas, postres). 
-
-SELECT 'Platos' AS categoria, p.nombre, SUM(dc.cantidad_platos) AS cantidad_vendida
-FROM detalle_comandas dc
-JOIN platos p ON dc.id_platos = p.id_platos
-GROUP BY p.nombre
-UNION
-SELECT 'Bebidas' AS categoria, b.nombre, SUM(dc.cantidad_bebidas) AS cantidad_vendida
-FROM detalle_comandas dc
-JOIN bebidas b ON dc.id_bebidas = b.id_bebidas
-GROUP BY b.nombre
-UNION
-SELECT 'Postres' AS categoria, po.nombre, SUM(dc.cantidad_postres) AS cantidad_vendida
-FROM detalle_comandas dc
-JOIN postres po ON dc.id_postres = po.id_postres
-GROUP BY po.nombre
-ORDER BY cantidad_vendida DESC;
-
-# objetivo: 
-  Realiza un análisis sobre el total de productos de vendidos por cada tabla "platos", "bebidas" y "postres". Une estas tablas mediante la sentencia "INNER JOIN" y obtiene el
-  total de estos realizando una suma de cantidades de cada producto tomada de la tabla "detalle_comandas". Ayudandonos a conocer las preferencias de los clientes y así
-  poder tomar decisiones relevantes sobre las ventas.
-
-# -- Suma de productos vendidos y porcentaje de cada uno.
+# Análisis de productos más vendidos del restaurante.
 
 SELECT
     categoria,
@@ -146,4 +123,7 @@ ORDER BY porcentaje_vendido DESC;
 
 
 # objetivo: 
-  
+
+Identifica los productos más vendidos del restaurante en las tres categorías consultadas: "platos", "bebidas" y "postres", a través de la tabla "detalle_comandas". Se accede a las cantidades vendidas de cada producto y se calcula un porcentaje de venta por cada producto en base al total de ventas de su categoría. Luego se calcula el porcentaje de venta para cada producto individual dividiendo su cantidad vendida por el total de ventas de su respectiva categoría, posteriormente multiplicando por 100 para expresarlo como un porcentaje.
+
+Este análisis nos acerca a las preferencias de los clientes y nos ayuda a tomar decisiones más acertadas en cuanto a la compra de materia prima para la producción y elaboración de los productos más solicitados, así como a la optimización del menú y a mejorar la experiencia de los clientes teniendo en cuenta sus preferencias.
