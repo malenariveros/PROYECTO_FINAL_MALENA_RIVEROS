@@ -83,7 +83,8 @@ Total 21 tablas.
 
 # ANÁLISIS DE DATOS: 
 
--- Análisis de ingresos mensuales.
+# -- Análisis de ingresos mensuales.
+
 SELECT DATE_FORMAT(fecha, '%Y-%m') AS mes, SUM(monto_total) AS ingresos
 FROM facturas_clientes
 GROUP BY mes
@@ -94,7 +95,7 @@ ORDER BY mes;
   mensual.
   
 
--- Análisis de preferencias de menú, para identificar los productos más vendidos de cada categoria (platos, bebidas, postres). 
+# -- Análisis de preferencias de menú, para identificar los productos más vendidos de cada categoria (platos, bebidas, postres). 
 
 SELECT 'Platos' AS categoria, p.nombre, SUM(dc.cantidad_platos) AS cantidad_vendida
 FROM detalle_comandas dc
@@ -112,7 +113,13 @@ JOIN postres po ON dc.id_postres = po.id_postres
 GROUP BY po.nombre
 ORDER BY cantidad_vendida DESC;
 
--- Suma de productos vendidos y porcentaje de cada uno.
+# objetivo: 
+  Realiza un análisis sobre el total de productos de vendidos por cada tabla "platos", "bebidas" y "postres". Une estas tablas mediante la sentencia "INNER JOIN" y obtiene el
+  total de estos realizando una suma de cantidades de cada producto tomada de la tabla "detalle_comandas". Ayudandonos a conocer las preferencias de los clientes y así
+  poder tomar decisiones relevantes sobre las ventas.
+
+# -- Suma de productos vendidos y porcentaje de cada uno.
+
 SELECT
     categoria,
     nombre,
@@ -136,3 +143,7 @@ FROM (
     GROUP BY po.nombre
 ) AS ventas_totales
 ORDER BY porcentaje_vendido DESC;
+
+
+# objetivo: 
+  
