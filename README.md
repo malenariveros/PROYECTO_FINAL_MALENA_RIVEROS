@@ -95,35 +95,17 @@ ORDER BY mes;
   mensual.
   
 
-# Análisis de productos más vendidos del restaurante.
+# Análisis de eficiencia de mesas.
 
-SELECT
-    categoria,
-    nombre,
-    cantidad_vendida,
-    ROUND((cantidad_vendida / (SELECT SUM(cantidad_platos) + SUM(cantidad_bebidas) + SUM(cantidad_postres) 
-                               FROM detalle_comandas)) * 100, 2) AS porcentaje_vendido
-FROM (
-    SELECT 'Platos' AS categoria, p.nombre, SUM(dc.cantidad_platos) AS cantidad_vendida
-    FROM detalle_comandas dc
-    JOIN platos p ON dc.id_platos = p.id_platos
-    GROUP BY p.nombre
-    UNION
-    SELECT 'Bebidas' AS categoria, b.nombre, SUM(dc.cantidad_bebidas) AS cantidad_vendida
-    FROM detalle_comandas dc
-    JOIN bebidas b ON dc.id_bebidas = b.id_bebidas
-    GROUP BY b.nombre
-    UNION
-    SELECT 'Postres' AS categoria, po.nombre, SUM(dc.cantidad_postres) AS cantidad_vendida
-    FROM detalle_comandas dc
-    JOIN postres po ON dc.id_postres = po.id_postres
-    GROUP BY po.nombre
-) AS ventas_totales
-ORDER BY porcentaje_vendido DESC;
+CREATE VIEW uso_de_mesas AS
+SELECT m.id_mesas, COUNT(c.id_comandas) AS veces_utilizada
+FROM mesas m
+LEFT JOIN comandas c ON m.id_mesas = c.id_mesas
+GROUP BY m.id_mesas
+ORDER BY veces_utilizada DESC;
 
+SELECT * FROM uso_mesas;
 
-# objetivo: 
+# objetivos: 
+	Analizar el uso de las mesas, más y menos utilizadas del restaurante para mejorar la experiencia del cliente en base a sus preferencias.
 
-Identifica los productos más vendidos del restaurante en las tres categorías consultadas: "platos", "bebidas" y "postres", a través de la tabla "detalle_comandas". Se accede a las cantidades vendidas de cada producto y se calcula un porcentaje de venta por cada producto en base al total de ventas de su categoría. Luego se calcula el porcentaje de venta para cada producto individual dividiendo su cantidad vendida por el total de ventas de su respectiva categoría, posteriormente multiplicando por 100 para expresarlo como un porcentaje.
-
-Este análisis nos acerca a las preferencias de los clientes y nos ayuda a tomar decisiones más acertadas en cuanto a la compra de materia prima para la producción y elaboración de los productos más solicitados, así como a la optimización del menú y a mejorar la experiencia de los clientes teniendo en cuenta sus preferencias.
