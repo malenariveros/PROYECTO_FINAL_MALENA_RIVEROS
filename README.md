@@ -5,27 +5,162 @@ Entrega del proyecto final.
 # CRECIÓN DE OBJETOS:
 
 # TABLAS:
-  - clientes.
-  - reservas.
-  - comandas.
-  - menu.
-  - platos.
-  - bebidas.
-  - postres.
-  - detalle_comandas.
-  - facturas_clientes.
-  - detalle_facturas_clientes.
-  - encuestas_satisfaccion.
-  - proveedores.
-  - pedidos_proveedores.
-  - detalle_pedidos_proveedores.
-  - facturas_proveedores.
-  - detalle_facturas_proveedores.
-  - empleados.
-  - turnos_empleados.
-  - empleados_despedidos.
-  - ventas.
-  - detalle_ventas.
+  - clientes(
+	id_clientes: identificador de cliente. int AI PK 
+	nombre: varchar(50) 
+	apellido: varchar(50) 
+	telefono: varchar(15) 
+	email: varchar(45) 
+	fecha_nacimiento: date)
+  - reservas(
+    	id_reserva: identificador de reserva. int AI PK 
+	hora: time 
+	fecha: date 
+	cantidad_pax: int 
+	id_mesas: int 
+	id_clientes: int)
+  - comandas(
+    	id_comandas: identificador de comandas. int PK 
+	hora: time 
+	fecha: date 
+	id_clientes: int FK
+	id_mesas: int FK)
+  - menu(
+	id_menu: identificador de menu. int AI PK 
+	nombre: varchar(50) 
+	descripcion: varchar(100) 
+	precio: decimal(10,2) 
+	tipo: varchar(50) 
+	id_comandas: int FK)
+  - platos(
+	id_platos: identificador de plato. int AI PK 
+	nombre: varchar(50) 
+	descripcion: varchar(100) 
+	categoria: varchar(50) 
+	tiempo_preparacion: time 
+	disponible: tinyint -indica disponibilidad en la carta.
+	precio: decimal(10,2)
+	id_menu: int  FK)
+  - bebidas(
+	id_bebidas: identificador de bebidas. int AI PK 
+	nombre: varchar(50) 
+	descripcion: varchar(100) 
+	categoria: varchar(50) 
+	disponible: tinyint - indica disponibilidad en la carta.
+	precio: decimal(10,2)
+	id_menu: int  FK)
+  - postres(
+    	id_postres: identificador de postre. int AI PK 
+	nombre: varchar(100) 
+	descripcion: varchar(100) 
+	disponible: tinyint -indica disponibilidad en la carta.
+	categoria: varchar(50) 
+	tiempo_preparacion: time 
+	precio: decimal(10,2)
+	id_menu: int FK)
+  - detalle_comandas(
+	id_detalle_comandas: identificador detalle de comandas. int AI PK 
+	id_comandas: int FK
+	id_platos: int FK
+	id_bebidas: int FK
+	id_menu: int FK
+	observaciones text 
+	id_postres int FK
+	cantidad_platos int 
+	cantidad_bebidas int 
+	cantidad_postres int)
+  - facturas_clientes(
+	id_facturas: identificador de facturas.: int AI PK 
+	monto_total: int 
+	fecha: date 
+	pagada: tinyint -indica pago realizado/pendiente.
+	id_clientes: int FK
+	id_comandas: int FK)
+  - detalle_facturas_clientes(
+	id_clientes: int FK 
+	id_facturas int FK
+	id_detalle_comandas: int FK)
+  - encuestas_satisfaccion(
+	id_encuestas: identificador encuestas. int AI PK 
+	comentarios: text 
+	fecha: date 
+	hora: time 
+	id_clientes: int FK)
+  - proveedores(
+	id_proveedores: identificador proveedor. int AI PK 
+	nombre: varchar(50) 
+	telefono: varchar(15) 
+	direccion: varchar(50))
+  - pedidos_proveedores(
+	id_pedidos_proveedores: identificador pedido. int AI PK 
+	detalle: text 
+	fecha: date 
+	id_proveedores: int FK)
+  - detalle_pedidos_proveedores(
+	id_detalle: identificador de detalle pedido. int AI PK 
+	productos text 
+	cantidad: int
+	id_proveedores: int FK
+	id_pedidos_proveedores: int FK)
+  - facturas_proveedores(
+	id_facturas_proveedores: identificador facturas. int AI PK 
+	detalle: text 
+	fecha: date 
+	monto: int 
+	id_proveedores: int FK
+	id_pedidos_proveedores: int FK)
+  - detalle_facturas_proveedores(
+	id_detalle: identificador detalle de factura. int AI PK 
+	productos: text 
+	cantidad: int
+	precio: int
+	id_proveedores: int FK
+	id_pedidos_proveedores: int FK)
+  - empleados(
+	id_empleados: identificador empleados. int AI PK 
+	nombre: varchar(50) 
+	apellido: varchar(50) 
+	fecha_nacimiento: date 
+	tipo_documento: varchar(15) 
+	numero_documento: int 
+	direccion: varchar(100) 
+	email: varchar(50) 
+	telefono: varchar(15) 
+	fecha_contratacion: date 
+	puesto: varchar(50) 
+	alergias: text)
+  - turnos_empleados(
+	id_turnos: identificador turnos. int AI PK 
+	tipo: varchar(50) 
+	fecha: date 
+	hora_inicio: time 
+	hora_fin: time 
+	puesto: varchar(50) 
+	observaciones: varchar(50) -horas extras, suspenciones, ect.
+	id_empleados: int fk)
+  - empleados_despedidos(
+	id_empleados_despedidos: identificador despidos. int AI PK 
+	nombre: varchar(50) 
+	apellido: varchar(50) 
+	fecha_contratacion: date 
+	fecha_despido: date 
+	motivo_despido: text 
+	puesto: varchar(45) 
+	id_empleados: int FK)
+  - ventas(
+	id_ventas: identificador de venta. int AI PK 
+	fecha: date)
+  - detalle_ventas(
+	id_detalle: identificador detalle. int AI PK 
+	id_menu: int 
+	cantidad_platos_vendidos: int 
+	cantidad_bebidas_vendidas: int 
+	cantidad_postres_vendidos: int 
+	cantidad_menu_pasos_vendidos: int
+	id_ventas: int FK
+	id_platos: int FK
+	id_bebidas: int FK
+	id_postres: int FK)
   
 Total 21 tablas.
 
