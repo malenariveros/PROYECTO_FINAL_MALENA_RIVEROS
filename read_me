@@ -1,0 +1,23 @@
+📊 Proyecto Final SQL: Sistema de Gestión para Restaurante
+Este proyecto consiste en el diseño y desarrollo de una base de datos relacional robusta para la gestión integral de un restaurante. Fue evaluado con una calificación de 10/10 y me permitió integrar el Top 10 de la comisión en Coderhouse.
+
+🎯 Objetivo
+Automatizar el control de pedidos, gestión de stock, asignación de mozos y facturación, garantizando la integridad de los datos y optimizando la obtención de métricas de negocio.
+
+🛠️ Herramientas y Tecnologías
+Motor de BD: MySQL
+
+Diseño: MySQL Workbench (Diagrama Entidad-Relación incluido en el repo)
+
+Lenguaje: SQL (DDL, DML, DCL)
+
+🚀 Implementaciones Técnicas (Lo que me dio el 10)
+Para este proyecto no solo diseñé tablas, sino que implementé lógica avanzada:
+
+Vistas (Views): Consultas predefinidas para monitorear pedidos pendientes y facturación diaria.
+
+Funciones: Cálculo automático de totales por pedido y descuentos.
+
+Procedimientos Almacenados (Stored Procedures): Automatización de la inserción de nuevos pedidos y actualización de estados de mesa.
+
+Triggers: Sistema de auditoría para registrar cambios en el historial de pedidos.
